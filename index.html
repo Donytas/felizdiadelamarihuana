@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para que mi migajera</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #000, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #000, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #000, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #000, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #000, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #000, rgba(0,0,0,0));
+            background-size: 200px 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 50px 20px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #d90429;
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0px #fff; 
+        }
+
+        .counter-msg {
+            color: #ff4d6d;
+            font-weight: bold;
+            margin-bottom: 30px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .grid-rosas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            perspective: 1000px;
+        }
+
+        .rosa-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000;
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.4s ease;
+            animation: aparecer 0.8s ease forwards;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .rosa-card img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease;
+        }
+
+        .comido {
+            transform: scale(0) rotate(360deg) !important;
+            opacity: 0;
+        }
+
+        .ya-comida {
+            pointer-events: none;
+            background-color: rgba(0,0,0,0.03);
+            border-color: #eee;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-next {
+            margin-top: 50px;
+            padding: 15px 30px;
+            background-color: #000;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            border: 2px solid #000;
+            display: inline-block;
+        }
+
+        .btn-next:hover {
+            background-color: #ff4d6d;
+            transform: scale(1.1);
+        }
+
+        /* Footer recuperado */
+        footer {
+            margin-top: 50px;
+            color: #000;
+            font-weight: bold;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.8);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid #000;
+        }
+
+        /* Estilo para el cuadro de "Glotona" */
+        #modal-glotona {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 5px solid #000;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        #modal-glotona h2 {
+            font-size: 3rem;
+            color: #d90429;
+            margin: 0;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pa mi terreneitor</h1>
+    <div class="counter-msg">¡provechito coma todo uwu! 🍰</div>
+
+    <div class="grid-rosas" id="gridRosas"></div>
+
+    <a href="next.html" class="btn-next">pegame pegame v: ✨</a>
+
+    <footer>Hecho por un odioso que te quiere :3 mi 520</footer>
+
+    <div class="overlay" id="overlay"></div>
+    <div id="modal-glotona">
+        <h2>¡GLOTONA! xd</h2>
+        <p>y la dieta ? tedibleeeee xd </p>
+        <button onclick="cerrarModal()" style="margin-top:15px; padding:10px 20px; cursor:pointer; font-weight:bold; border:2px solid #000; border-radius:10px;">bromita ala otra nos comemos 4 dea'</button>
+    </div>
+
+    <script>
+        const grid = document.getElementById('gridRosas');
+        const overlay = document.getElementById('overlay');
+        const modal = document.getElementById('modal-glotona');
+        const nombreImagen = 'Mini-milhojas.png'; 
+        
+        let pastelesComidos = 0;
+        const totalPasteles = 20;
+
+        for (let i = 1; i <= totalPasteles; i++) {
+            const card = document.createElement('div');
+            card.className = 'rosa-card';
+            card.style.animationDelay = `${i * 0.05}s`;
+
+            const img = document.createElement('img');
+            img.src = nombreImagen;
+            img.alt = `Pastelito ${i}`;
+            
+            img.onerror = function() {
+                this.src = "https://cdn-icons-png.flaticon.com/512/3448/3448054.png"; 
+            };
+
+            card.addEventListener('click', function() {
+                if (!this.classList.contains('ya-comida')) {
+                    const imagen = this.querySelector('img');
+                    imagen.classList.add('comido');
+                    this.classList.add('ya-comida');
+                    
+                    pastelesComidos++;
+
+                    if (pastelesComidos === totalPasteles) {
+                        setTimeout(() => {
+                            overlay.style.display = 'block';
+                            modal.style.display = 'block';
+                        }, 600);
+                    }
+                }
+            });
+
+            card.appendChild(img);
+            grid.appendChild(card);
+        }
+
+        function cerrarModal() {
+            overlay.style.display = 'none';
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

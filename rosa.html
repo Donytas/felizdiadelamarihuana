@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jamas espectadora ✨</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .titulo {
+            position: absolute;
+            top: 5%;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            font-size: 2.5rem;
+            font-style: italic;
+            text-shadow: 0 0 25px #ff0055, 0 0 50px #ff0055;
+            z-index: 100;
+            animation: brillar 2s infinite alternate;
+        }
+
+        @keyframes brillar {
+            from { opacity: 0.7; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* --- CONTENEDOR DEL RAMO --- */
+        .garden {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Base del ramo */
+            z-index: 10;
+        }
+
+        /* Punto donde se conectan todos los tallos */
+        .base-ramo {
+            position: absolute;
+            bottom: -20px;
+            width: 10px;
+            height: 10px;
+            background: #081c15;
+        }
+
+        .flower {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform-origin: bottom center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: balanceo 5s ease-in-out infinite;
+        }
+
+        /* TALLOS GIGANTES Y CONECTADOS */
+        .stem {
+            width: 12px; /* Más grueso pe' */
+            height: var(--h);
+            background: linear-gradient(to top, #081c15, #1b4332, #2d6a4f, #52b788);
+            border-radius: 15px;
+            position: relative;
+            animation: crecerTallo 2.5s ease-out forwards;
+            box-shadow: 0 0 20px rgba(45, 106, 79, 0.9);
+        }
+
+        /* Hojas más grandes y brillantes */
+        .leaf {
+            position: absolute;
+            width: 90px;
+            height: 45px;
+            background: #2d6a4f;
+            border-radius: 5px 40px;
+            border: 2px solid #74c69d;
+            box-shadow: 0 0 20px rgba(64, 145, 108, 0.7);
+        }
+        .leaf.l { left: -85px; transform: rotate(-35deg); }
+        .leaf.r { right: -85px; transform: rotate(35deg) scaleX(-1); }
+
+        /* --- LA ROSA GIGANTE (250px de puro amor) --- */
+        .rose-head {
+            position: absolute;
+            top: -120px; /* Ajustado por el tamaño giga */
+            width: 250px; 
+            height: 250px;
+            transform: scale(0);
+            animation: florecer 1.5s 2s ease-out forwards;
+        }
+
+        .petal {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff0055, #3d000e);
+            border-radius: 50% 50% 20% 20% / 80% 80% 40% 40%;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .p1 { transform: rotate(0deg); }
+        .p2 { transform: rotate(45deg); }
+        .p3 { transform: rotate(90deg); }
+        .p4 { transform: rotate(135deg); }
+        .p5 { transform: rotate(180deg); }
+        .p6 { transform: rotate(225deg); }
+        .p7 { transform: rotate(270deg); }
+        .p8 { transform: rotate(315deg); }
+
+        .center {
+            position: absolute;
+            top: 30%; left: 30%;
+            width: 40%; height: 40%;
+            background: radial-gradient(circle, #ff85a1 0%, #800020 100%);
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: inset 0 0 30px #000, 0 0 40px #ff0055;
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes crecerTallo {
+            from { height: 0; }
+            to { height: var(--h); }
+        }
+
+        @keyframes florecer {
+            to { transform: scale(1); filter: drop-shadow(0 0 60px #ff0055); }
+        }
+
+        @keyframes balanceo {
+            0%, 100% { transform: rotate(calc(var(--ang) - 2deg)); }
+            50% { transform: rotate(calc(var(--ang) + 2deg)); }
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: parpadeo 3s infinite;
+        }
+
+        @keyframes parpadeo {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(2); opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="titulo">"Para esa personita que me entiende mas que nadie mi tefa~ ."</div>
+
+    <div class="garden" id="garden">
+        <div class="base-ramo"></div>
+    </div>
+
+    <script>
+        const garden = document.getElementById('garden');
+        const numFlores = 5; 
+
+        for (let i = 0; i < numFlores; i++) {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            // Ángulo para que parezcan amarradas en la base y se abran arriba
+            const angulo = (i - (numFlores - 1) / 2) * 20; 
+            const altura = 450 + Math.random() * 150; // TALLOS SÚPER LARGOS
+            const delay = i * 0.4;
+
+            flower.style.setProperty('--ang', angulo + 'deg');
+            flower.style.setProperty('--h', altura + 'px');
+            flower.style.animationDelay = `${delay}s`;
+
+            flower.innerHTML = `
+                <div class="rose-head" style="animation-delay: ${delay + 2}s">
+                    <div class="petal p1"></div>
+                    <div class="petal p2"></div>
+                    <div class="petal p3"></div>
+                    <div class="petal p4"></div>
+                    <div class="petal p5"></div>
+                    <div class="petal p6"></div>
+                    <div class="petal p7"></div>
+                    <div class="petal p8"></div>
+                    <div class="center"></div>
+                </div>
+                <div class="stem" style="animation-delay: ${delay}s">
+                    <div class="leaf l" style="bottom: 35%"></div>
+                    <div class="leaf r" style="bottom: 55%"></div>
+                </div>
+            `;
+            garden.appendChild(flower);
+        }
+
+        // Estrellas
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 4 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            document.body.appendChild(star);
+        }
+    </script>
+</body>
+</html>

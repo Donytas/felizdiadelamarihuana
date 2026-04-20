@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro pancito ✨</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Fondo negro total */
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-bottom: 80px; /* Un poco más de espacio para el botón */
+        }
+
+        /* --- EFECTO DE ESTRELLAS --- */
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- REPRODUCTOR DE MÚSICA ARRIBA --- */
+        .reproductor-musica {
+            position: relative;
+            z-index: 10;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 80%;
+            max-width: 400px;
+            display: flex;
+            justify-content: center;
+        }
+
+        audio {
+            height: 35px;
+            filter: invert(100%);
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .contenedor-foto {
+            position: relative;
+            z-index: 5;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: flotar 3s ease-in-out infinite;
+        }
+
+        .foto-principal {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 4px solid white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .dedicatoria {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            max-width: 80%;
+            margin-bottom: 30px;
+        }
+
+        /* --- SECCIÓN DEL GIF --- */
+        .contenedor-gif {
+            position: relative;
+            z-index: 5;
+            margin-top: 20px;
+            width: 200px; 
+            transition: transform 0.3s ease;
+        }
+
+        .gif-final {
+            width: 100%;
+            border-radius: 15px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        /* --- BOTÓN FINAL --- */
+        .btn-final {
+            position: relative;
+            z-index: 10;
+            margin-top: 40px;
+            padding: 15px 35px;
+            background-color: transparent;
+            color: white;
+            text-decoration: none;
+            border: 2px solid white;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .btn-final:hover {
+            background-color: white;
+            color: black;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: parpadeo var(--duracion) infinite;
+        }
+
+        @keyframes parpadeo {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stars-container"></div>
+
+    <div class="reproductor-musica">
+        <audio controls autoplay loop>
+            <source src="Tears For Fears - Everybody Wants To Rule The World (Sub. Español Lyrics).mp3" type="audio/mpeg">
+            Tu navegador no soporta el audio.
+        </audio>
+    </div>
+
+    <div class="contenedor-foto">
+        <img src="WhatsApp Image 2026-04-19 at 10.31.08 PM.jpeg" alt="Nuestra foto" class="foto-principal">
+        <p class="dedicatoria">eres mi limon por que quiera que me acompañes a todos lados loquita
+            <br>psdta: bañate D: ✨</p>
+        
+        <div class="contenedor-gif">
+            <img src="7150adc8c32057caef568386a798a671.gif" alt="Regalito" class="gif-final">
+        </div>
+
+        <a href="rosa.html" class="btn-final">ultimo nivel~' </a>
+    </div>
+
+    <script>
+        const container = document.getElementById('stars-container');
+        const numEstrellas = 150;
+
+        for (let i = 0; i < numEstrellas; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            const size = Math.random() * 3 + 'px';
+            const x = Math.random() * 100 + 'vw';
+            const y = Math.random() * 100 + 'vh';
+            const delay = Math.random() * 5 + 's';
+            const duracion = (Math.random() * 3 + 2) + 's';
+
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = x;
+            star.style.top = y;
+            star.style.setProperty('--duracion', duracion);
+            star.style.animationDelay = delay;
+
+            container.appendChild(star);
+        }
+    </script>
+</body>
+</html>
